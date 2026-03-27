@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>II Switzerland — 2026 Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cap-blue:#0070AD; --cap-cyan:#00B5E2; --cap-dark:#0D1B2A;
+    --bg:#F0F5FA; --surface:#FFFFFF; --border:#DDE6EE;
+    --text-primary:#0D1B2A; --text-secondary:#5A7490; --text-muted:#8BA3BA;
+    --vp-color:#0070AD; --mgr-color:#00B5E2; --con-color:#00968F;
+    --high:#DC2626; --med:#D97706; --low:#059669;
+    --high-bg:#FEF2F2; --med-bg:#FFFBEB; --low-bg:#ECFDF5;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh}
+
+  /* HEADER */
+  header{background:var(--cap-dark);padding:28px 40px 24px;position:relative;overflow:hidden}
+  header::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border:2px solid var(--cap-cyan);border-radius:50%;opacity:.15}
+  header::after{content:'';position:absolute;bottom:-80px;right:80px;width:180px;height:180px;border:1.5px solid var(--cap-blue);border-radius:50%;opacity:.12}
+  .header-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cap-cyan);margin-bottom:8px}
+  .header-title{font-size:28px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.1}
+  .header-title span{color:var(--cap-cyan)}
+  .header-sub{margin-top:8px;font-size:13px;color:#8BA3BA}
+  .header-meta{margin-top:18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .header-stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 16px;text-align:center}
+  .header-stat .num{font-size:20px;font-weight:800;color:var(--cap-cyan)}
+  .header-stat .lbl{font-size:10px;color:#8BA3BA;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+  .header-clear-btn{margin-left:auto;padding:8px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:8px;color:#8BA3BA;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+  .header-clear-btn:hover{background:rgba(220,38,38,.2);border-color:rgba(220,38,38,.4);color:#FCA5A5}
+
+  /* MAIN */
+  main{max-width:980px;margin:0 auto;padding:32px 24px 60px}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-muted);margin:40px 0 16px;display:flex;align-items:center;gap:10px}
+  .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+  /* TABS */
+  .level-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+  .level-tab{padding:10px 20px;border-radius:10px;border:2px solid var(--border);background:var(--surface);color:var(--text-secondary);font-weight:700;font-size:13px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;position:relative}
+  .level-tab:hover{border-color:var(--cap-blue);color:var(--cap-blue)}
+  .level-tab.active     {background:var(--vp-color); border-color:var(--vp-color); color:#fff;box-shadow:0 4px 14px rgba(0,112,173,.3)}
+  .level-tab.active.mgr{background:var(--mgr-color);border-color:var(--mgr-color);box-shadow:0 4px 14px rgba(0,181,226,.3)}
+  .level-tab.active.con{background:var(--con-color);border-color:var(--con-color);box-shadow:0 4px 14px rgba(0,150,143,.3)}
+  .tab-badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:rgba(220,38,38,.85);color:#fff;font-size:10px;font-weight:800;position:absolute;top:-6px;right:-6px}
+
+  /* PANEL */
+  .level-panel{display:none}
+  .level-panel.active{display:block;animation:fadeIn .25s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .level-header{background:var(--surface);border-radius:14px 14px 0 0;border-top:4px solid var(--vp-color);padding:18px 22px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+  .level-header.mgr{border-top-color:var(--mgr-color)}
+  .level-header.con{border-top-color:var(--con-color)}
+  .level-name{font-size:17px;font-weight:800;color:var(--text-primary)}
+  .level-people{font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5;max-width:560px}
+  .level-stats{display:flex;gap:18px}
+  .stat-box .n{font-size:22px;font-weight:800}
+  .stat-box .l{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-top:1px}
+
+  /* AREAS */
+  .areas-wrap{background:#F8FAFC;border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}
+  .area-section{border-bottom:1px solid var(--border)}
+  .area-section:last-child{border-bottom:none}
+  .area-header{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;cursor:pointer;background:var(--surface);transition:background .15s;border:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+  .area-header:hover{background:#F8FAFC}
+  .area-tag{padding:4px 12px;border-radius:6px;font-size:12px;font-weight:700}
+  .tag-ai {background:rgba(91,33,182,.1);color:#5B21B6}
+  .tag-ppl{background:rgba(0,112,173,.1);color:#0070AD}
+  .tag-ev {background:rgba(8,145,178,.1);color:#0891B2}
+  .tag-tr {background:rgba(5,150,105,.1);color:#059669}
+  .area-count{font-size:12px;color:var(--text-muted)}
+  .area-toggle{font-size:13px;color:var(--text-muted);margin-left:12px}
+  .area-tasks{padding:6px 22px 16px}
+  .area-tasks.collapsed{display:none}
+
+  /* TASK CARD */
+  .task-card{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;margin-bottom:8px;background:var(--surface);border-radius:9px;border:1px solid var(--border);transition:box-shadow .15s,transform .15s}
+  .task-card:hover{box-shadow:0 3px 10px rgba(0,0,0,.08);transform:translateY(-1px)}
+  .task-card:last-child{margin-bottom:0}
+  .task-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:6px}
+  .dot-high{background:var(--high)} .dot-med{background:var(--med)} .dot-low{background:var(--low)}
+  .task-body{flex:1;min-width:0}
+  .task-text{font-size:13.5px;font-weight:500;color:var(--text-primary);line-height:1.45}
+  .task-badges{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center}
+  .badge{font-size:10.5px;font-weight:700;border-radius:5px;padding:2px 8px}
+  .badge-high{background:var(--high-bg);color:var(--high)}
+  .badge-med {background:var(--med-bg); color:var(--med)}
+  .badge-low {background:var(--low-bg); color:var(--low)}
+  .badge-date{background:#F1F5F9;color:#475569;font-weight:500}
+  .assignee-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+
+  /* AVATAR CHIP */
+  .avatar-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 4px;border-radius:20px;font-size:11px;font-weight:600;line-height:1;animation:popIn .18s ease}
+  @keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+  .avatar-chip .av-circle{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;flex-shrink:0}
+  .avatar-chip .rm{cursor:pointer;opacity:.5;font-size:10px;margin-left:2px;transition:opacity .15s;line-height:1}
+  .avatar-chip .rm:hover{opacity:1}
+
+  /* ASSIGN BTN */
+  .assign-btn{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1.5px dashed var(--border);background:transparent;color:var(--text-muted);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;position:relative}
+  .assign-btn:hover{border-color:var(--cap-blue);color:var(--cap-blue);background:rgba(0,112,173,.05)}
+  .assign-btn svg{width:11px;height:11px}
+
+  /* DROPDOWN */
+  .assign-dropdown{position:absolute;top:calc(100% + 5px);left:0;z-index:200;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:210px;overflow:hidden;animation:dropIn .15s ease}
+  @keyframes dropIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .dd-search{padding:8px 10px;border:none;border-bottom:1px solid var(--border);width:100%;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-primary);outline:none;background:#F8FAFC}
+  .dd-list{max-height:200px;overflow-y:auto}
+  .dd-item{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:500;transition:background .1s}
+  .dd-item:hover{background:#F0F5FA}
+  .dd-item.sel{background:rgba(0,112,173,.07)}
+  .dd-item .d-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;flex-shrink:0}
+  .dd-item .d-nm{flex:1}
+  .dd-item .d-ck{font-size:12px;color:var(--cap-blue)}
+  .dd-empty{padding:12px;text-align:center;font-size:12px;color:var(--text-muted)}
+
+  /* SUMMARY */
+  .summary-panel{background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden}
+  .summary-header{background:var(--cap-dark);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+  .summary-header h2{font-size:14px;font-weight:700;color:#fff}
+  .summary-header span{font-size:12px;color:#8BA3BA}
+  .summary-body{padding:16px 20px}
+  .summary-empty{text-align:center;padding:24px;font-size:13px;color:var(--text-muted);font-style:italic}
+  .summary-person{margin-bottom:16px}
+  .summary-person:last-child{margin-bottom:0}
+  .sp-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .sp-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}
+  .sp-name{font-size:13px;font-weight:700}
+  .sp-level{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-left:4px}
+  .sp-count{margin-left:auto;font-size:11px;font-weight:700;background:#F1F5F9;color:#475569;padding:2px 8px;border-radius:10px}
+  .sp-tasks{margin-left:38px;display:flex;flex-direction:column;gap:4px}
+  .sp-task{font-size:12px;color:var(--text-secondary);padding:5px 10px;background:#F8FAFC;border-radius:6px;border-left:3px solid var(--border);display:flex;align-items:center;gap:8px}
+  .sp-task .stag{font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;flex-shrink:0}
+
+  /* TIMELINE */
+  .timeline-wrap{background:var(--surface);border-radius:14px;border:1px solid var(--border);overflow:hidden}
+  .timeline-header{background:var(--cap-dark);padding:18px 24px;display:flex;align-items:center;gap:12px}
+  .timeline-header h2{font-size:15px;font-weight:700;color:#fff}
+  .timeline-header span{font-size:12px;color:#8BA3BA}
+  .months-scroll{overflow-x:auto;padding:0 0 4px}
+  .months-grid{display:grid;grid-template-columns:repeat(12,minmax(72px,1fr));min-width:860px}
+  .month-col{border-right:1px solid var(--border);padding-bottom:16px}
+  .month-col:last-child{border-right:none}
+  .month-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);padding:12px 10px 10px;text-align:center;border-bottom:1px solid var(--border);background:#F8FAFC}
+  .month-label.current{color:var(--cap-blue);background:rgba(0,112,173,.06)}
+  .month-events{padding:8px 6px 0;display:flex;flex-direction:column;gap:5px}
+  .event-pill{border-radius:6px;padding:5px 8px;font-size:10.5px;font-weight:600;line-height:1.3}
+  .ev-internal  {background:rgba(0,112,173,.12);color:#0056A3;border-left:3px solid #0070AD}
+  .ev-recruiting{background:rgba(8,145,178,.12);color:#0E6E8A;border-left:3px solid #00B5E2}
+  .ev-bd        {background:rgba(91,33,182,.1); color:#4C1D95;border-left:3px solid #7C3AED}
+  .ev-team      {background:rgba(5,150,105,.1); color:#064E3B;border-left:3px solid #059669}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--border);background:#F8FAFC}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-secondary);font-weight:500}
+  .legend-dot{width:10px;height:10px;border-radius:3px}
+
+  footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Capgemini Invent · Intelligent Industry Switzerland</div>
+  <div class="header-title">2026 <span>Roadmap</span> — TO DOs by Seniority</div>
+  <div class="header-sub">Based on team workshop · 27.03.2026 · Zürich · Company Confidential</div>
+  <div class="header-meta">
+    <div class="header-stat"><div class="num">4</div><div class="lbl">Focus Areas</div></div>
+    <div class="header-stat"><div class="num">31</div><div class="lbl">nIInjas</div></div>
+    <div class="header-stat"><div class="num" id="assigned-count">0</div><div class="lbl">Assigned</div></div>
+    <button class="header-clear-btn" onclick="clearAll()">✕ Clear all assignments</button>
+  </div>
+</header>
+
+<main>
+  <div class="section-title">TO DO Roadmap by Seniority</div>
+
+  <div class="level-tabs">
+    <button class="level-tab active vp"  onclick="showLevel('vp',this)"  id="tab-vp" >VP / Senior Director <span class="tab-badge" id="badge-vp"  style="display:none"></span></button>
+    <button class="level-tab mgr"        onclick="showLevel('mgr',this)" id="tab-mgr">Manager / Senior Manager <span class="tab-badge" id="badge-mgr" style="display:none"></span></button>
+    <button class="level-tab con"        onclick="showLevel('con',this)" id="tab-con">Consultant / Senior Consultant <span class="tab-badge" id="badge-con" style="display:none"></span></button>
+  </div>
+
+  <!-- VP -->
+  <div class="level-panel active" id="panel-vp">
+    <div class="level-header vp">
+      <div><div class="level-name">VP / Senior Director</div><div class="level-people">Michael Becker · Thomas Steigerwald</div></div>
+      <div class="level-stats"><div class="stat-box"><div class="n" style="color:var(--vp-color)">10</div><div class="l">Total</div></div><div class="stat-box"><div class="n" style="color:var(--high)">5</div><div class="l">High</div></div></div>
+    </div>
+    <div class="areas-wrap">
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ai">🤖 AI in Projects</span><span class="area-count">4 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="vp" data-id="vp-ai-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Secure AI tool budget for the team</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="vp" data-id="vp-ai-2"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Define global-to-local AI gatekeeper role &amp; governance model — filter global Invent input to keep team operational</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="vp" data-id="vp-ai-3"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Endorse AI Platform for client learning (client sandbox / tryout access)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="vp" data-id="vp-ai-4"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Align with leadership on Knowledge Management AI strategy (LUMOS + LLM enrichment)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ppl">👥 People</span><span class="area-count">3 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="vp" data-id="vp-ppl-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Drive Director-level recruitment (Max signed for May; +1 in September)</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Ongoing</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="vp" data-id="vp-ppl-2"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Define coaching &amp; mentoring framework (leadership, communication, mental strength)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="vp" data-id="vp-ppl-3"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Approve outsourcing framework — clarify what is available internally before going external</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ev">📅 Events</span><span class="area-count">3 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="vp" data-id="vp-ev-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Define strategy &amp; BD positioning for Watches &amp; Wonders — preparation session required</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Apr 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="vp" data-id="vp-ev-2"><div class="task-dot dot-low"></div><div class="task-body"><div class="task-text">Plan II ski weekend (next winter season)</div><div class="task-badges"><span class="badge badge-low">Low Priority</span><span class="badge badge-date">📅 Q4 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="vp" data-id="vp-ev-3"><div class="task-dot dot-low"></div><div class="task-body"><div class="task-text">Endorse integration of non-Swiss II colleagues into Swiss team events and habits</div><div class="task-badges"><span class="badge badge-low">Low Priority</span><span class="badge badge-date">📅 Ongoing</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MGR -->
+  <div class="level-panel" id="panel-mgr">
+    <div class="level-header mgr">
+      <div><div class="level-name">Manager / Senior Manager</div><div class="level-people">Vivien Abelard · Camille Depigny · Kaessra Schneeberger · Nils Goldau · Alexis Bourguignat · Cristian Belfiore · Alessandra Bianchi · Arnaud Stricher · Joshua Gran</div></div>
+      <div class="level-stats"><div class="stat-box"><div class="n" style="color:var(--mgr-color)">18</div><div class="l">Total</div></div><div class="stat-box"><div class="n" style="color:var(--high)">7</div><div class="l">High</div></div></div>
+    </div>
+    <div class="areas-wrap">
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ai">🤖 AI in Projects</span><span class="area-count">5 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="mgr" data-id="mgr-ai-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Design &amp; run AI in Projects FAQ chatbot / agent POC — deadline 22 May (Tiago leads, manager provides scope &amp; oversight)</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 22 May 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ai-2"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Identify 2–3 project use cases for Agent POCs — starting with Beyond Gravity engagement</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ai-3"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Scope and pilot Industry AI rapid prototyping capability (GenAI demos for client engagements)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ai-4"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Define enhanced knowledge management process: project learnings → sanitize → reuse laterally across team</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ai-5"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Set up AI Platform governance structure for team-wide learning and client onboarding</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ppl">👥 People</span><span class="area-count">5 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="mgr" data-id="mgr-ppl-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Launch recruitment buddy programme for strong candidates in the pipeline</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ppl-2"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Improve funnel visibility for individual consultants — clearer view on upcoming projects &amp; proposals</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ppl-3"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Organise pitch / case study classroom sessions — bring real project problem, team solves it</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2–Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ppl-4"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Build and run coach &amp; mentoring programme — pair seniors with junior consultants</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ppl-5"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Establish EPFL / HSG recruiting presence (events already in calendar: HSG Jun, EPFL Oct)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Jun &amp; Oct 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ev">📅 Events</span><span class="area-count">4 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="mgr" data-id="mgr-ev-1"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Coordinate GenAI Zürich meetup participation / sponsorship</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2–Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ev-2"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Organise II office events (Lausanne Jun, Summer Sep, Christmas Dec)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Jun / Sep / Dec 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ev-3"><div class="task-dot dot-low"></div><div class="task-body"><div class="task-text">Plan team sport events — Zürich and Geneva offsite opportunities</div><div class="task-badges"><span class="badge badge-low">Low Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-ev-4"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Prepare BD presence at SMG (Aug), ACC Forum (Oct) and BiotechX</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Aug–Oct 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-tr">🎓 Training &amp; Skills</span><span class="area-count">4 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="mgr" data-id="mgr-tr-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Design training day agenda — Types of AI, GenAI fundamentals, Industry 4.0 baseline</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-tr-2"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Benchmark and select external training provider; confirm budget allocation</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-tr-3"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Plan Industry 4.0 bootcamp (2–3 days) — format, facilitator, location</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="mgr" data-id="mgr-tr-4"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Set up Intelligent Industry Hub (II Hub — next iteration)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CON -->
+  <div class="level-panel" id="panel-con">
+    <div class="level-header con">
+      <div><div class="level-name">Consultant / Senior Consultant</div><div class="level-people">Antonio Pascotto · Katharina Kubelt · Fanny Mertz · Claudius Feldmann · Tiago Rodrigues · Iliass Arabi · Leopold von Gerlach · Gaetan Deros · Caroline Jiang · Maëlle Farjot · Frédéric Bischoff · Astrid Berger · Alex Stauffer · Marion Jancovici · Chantal Gressier · Eva Pierucci · Camille Grumblatt · Gabriel Savy · Mathis Letterman · Malena Aguiriano Calvo</div></div>
+      <div class="level-stats"><div class="stat-box"><div class="n" style="color:var(--con-color)">16</div><div class="l">Total</div></div><div class="stat-box"><div class="n" style="color:var(--high)">6</div><div class="l">High</div></div></div>
+    </div>
+    <div class="areas-wrap">
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ai">🤖 AI in Projects</span><span class="area-count">5 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="con" data-id="con-ai-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Tiago: Build FAQ chatbot / agent POC and demo to team by 22 May</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 22 May 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ai-2"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Each consultant: study Claude / AI capabilities — attend Felix's session and self-explore</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ai-3"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Contribute project knowledge snippets for knowledge management — keep LUMOS uploads current</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Ongoing</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ai-4"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Test and document AI tools in day-to-day work — rapid prototyping, coding, analysis</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2–Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ai-5"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Present at least 1 AI use case / demo from own project to peers (project zoom-out format)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ppl">👥 People</span><span class="area-count">4 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="con" data-id="con-ppl-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Act as recruitment buddy for at least 1 strong candidate in the hiring pipeline</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Ongoing</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ppl-2"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Upload all deliverables, proposals and credentials to LUMOS — maintain &gt;85% target</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Ongoing</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ppl-3"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Go outside the office — attend at least 1 external event / meetup per quarter</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Quarterly</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ppl-4"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Participate in pitch / case study classroom exercises — as both presenter and solver</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2–Q3 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-ev">📅 Events</span><span class="area-count">3 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="con" data-id="con-ev-1"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Join GenAI Zürich / BiotechX events and share learnings back to the team</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2–Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ev-2"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Attend Watches &amp; Wonders prep session and contribute industry knowledge</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Apr 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-ev-3"><div class="task-dot dot-low"></div><div class="task-body"><div class="task-text">Actively participate in II office events — Zürich (done ✓) and Lausanne next</div><div class="task-badges"><span class="badge badge-low">Low Priority</span><span class="badge badge-date">📅 Jun 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+      <div class="area-section">
+        <button class="area-header" onclick="toggleArea(this)"><div style="display:flex;align-items:center;gap:10px"><span class="area-tag tag-tr">🎓 Training &amp; Skills</span><span class="area-count">4 tasks</span></div><span class="area-toggle">▲</span></button>
+        <div class="area-tasks">
+          <div class="task-card" data-level="con" data-id="con-tr-1"><div class="task-dot dot-high"></div><div class="task-body"><div class="task-text">Complete GenAI fundamentals training (Types of AI module)</div><div class="task-badges"><span class="badge badge-high">High Priority</span><span class="badge badge-date">📅 Q2 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-tr-2"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Attend Industry 4.0 bootcamp (2–3 days)</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-tr-3"><div class="task-dot dot-med"></div><div class="task-body"><div class="task-text">Engage with face-to-face AI training — hackathons, internal workshops</div><div class="task-badges"><span class="badge badge-med">Medium Priority</span><span class="badge badge-date">📅 Q2–Q4 2026</span></div><div class="assignee-row"></div></div></div>
+          <div class="task-card" data-level="con" data-id="con-tr-4"><div class="task-dot dot-low"></div><div class="task-body"><div class="task-text">Offer to facilitate or co-lead at least 1 training module for peers</div><div class="task-badges"><span class="badge badge-low">Low Priority</span><span class="badge badge-date">📅 Q3 2026</span></div><div class="assignee-row"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-title">Assignment Summary</div>
+  <div class="summary-panel">
+    <div class="summary-header"><h2>👤 Tasks by Person</h2><span id="summary-subtitle">No assignments yet</span></div>
+    <div class="summary-body" id="summary-body">
+      <div class="summary-empty" id="summary-empty">Assign tasks above to see a per-person summary here.</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-title">Events Timeline 2026</div>
+  <div class="timeline-wrap">
+    <div class="timeline-header"><h2>📅 Intelligent Industry Event Calendar 2026</h2><span>Internal · Recruiting · Business Development · Team</span></div>
+    <div class="months-scroll">
+      <div class="months-grid">
+        <div class="month-col"><div class="month-label">Jan</div><div class="month-events"><div class="event-pill ev-bd">FMHG</div></div></div>
+        <div class="month-col"><div class="month-label">Feb</div><div class="month-events"><div class="event-pill ev-recruiting">ETH</div><div class="event-pill ev-bd">FMHG</div></div></div>
+        <div class="month-col"><div class="month-label current">Mar ◀</div><div class="month-events"><div class="event-pill ev-internal">II Office ZUR ✓</div></div></div>
+        <div class="month-col"><div class="month-label">Apr</div><div class="month-events"><div class="event-pill ev-bd">Hannover Messe</div><div class="event-pill ev-bd">Watches &amp; Wonders</div></div></div>
+        <div class="month-col"><div class="month-label">May</div><div class="month-events"><div class="event-pill ev-bd">Swiss PLM Symposium</div><div class="event-pill ev-team">Agent POC Deadline</div></div></div>
+        <div class="month-col"><div class="month-label">Jun</div><div class="month-events"><div class="event-pill ev-internal">II Office LAU</div><div class="event-pill ev-recruiting">HSG</div><div class="event-pill ev-bd">GenAI ZUR</div></div></div>
+        <div class="month-col"><div class="month-label">Jul</div><div class="month-events"><div class="event-pill ev-bd">BiotechX</div></div></div>
+        <div class="month-col"><div class="month-label">Aug</div><div class="month-events"><div class="event-pill ev-bd">SMG</div></div></div>
+        <div class="month-col"><div class="month-label">Sep</div><div class="month-events"><div class="event-pill ev-internal">II Office Summer Event</div></div></div>
+        <div class="month-col"><div class="month-label">Oct</div><div class="month-events"><div class="event-pill ev-bd">ACC Forum</div><div class="event-pill ev-recruiting">EPFL</div></div></div>
+        <div class="month-col"><div class="month-label">Nov</div><div class="month-events"><div class="event-pill ev-bd">Swiss AI Summit ZUR</div></div></div>
+        <div class="month-col"><div class="month-label">Dec</div><div class="month-events"><div class="event-pill ev-internal">II Office Chr. Event</div><div class="event-pill ev-team">II Ski Weekend</div></div></div>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#0070AD"></div>Internal</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#00B5E2"></div>Recruiting</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#7C3AED"></div>Business Development</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#059669"></div>Team Initiative</div>
+    </div>
+  </div>
+</main>
+
+<footer>Intelligent Industry Switzerland · Quarterly Meeting 27.03.2026 · Zürich · Company Confidential © Capgemini Invent 2026</footer>
+
+<script>
+// ── PEOPLE DATA ─────────────────────────────────────────────────────────────
+const PEOPLE = {
+  vp: [
+    {id:'michael-becker',      name:'Michael Becker',         initials:'MB'},
+    {id:'thomas-steigerwald',  name:'Thomas Steigerwald',     initials:'TS'},
+  ],
+  mgr: [
+    {id:'vivien-abelard',      name:'Vivien Abelard',         initials:'VA'},
+    {id:'camille-depigny',     name:'Camille Depigny',        initials:'CD'},
+    {id:'kaessra-schneeberger',name:'Kaessra Schneeberger',   initials:'KS'},
+    {id:'nils-goldau',         name:'Nils Goldau',            initials:'NG'},
+    {id:'alexis-bourguignat',  name:'Alexis Bourguignat',     initials:'AB'},
+    {id:'cristian-belfiore',   name:'Cristian Belfiore',      initials:'CB'},
+    {id:'alessandra-bianchi',  name:'Alessandra Bianchi',     initials:'AL'},
+    {id:'arnaud-stricher',     name:'Arnaud Stricher',        initials:'AS'},
+    {id:'joshua-gran',         name:'Joshua Gran',            initials:'JG'},
+  ],
+  con: [
+    {id:'antonio-pascotto',    name:'Antonio Pascotto',       initials:'AP'},
+    {id:'katharina-kubelt',    name:'Katharina Kubelt',       initials:'KK'},
+    {id:'fanny-mertz',         name:'Fanny Mertz',            initials:'FM'},
+    {id:'claudius-feldmann',   name:'Claudius Feldmann',      initials:'CF'},
+    {id:'tiago-rodrigues',     name:'Tiago Rodrigues',        initials:'TR'},
+    {id:'iliass-arabi',        name:'Iliass Arabi',           initials:'IA'},
+    {id:'leopold-von-gerlach', name:'Leopold von Gerlach',    initials:'LG'},
+    {id:'gaetan-deros',        name:'Gaetan Deros',           initials:'GD'},
+    {id:'caroline-jiang',      name:'Caroline Jiang',         initials:'CJ'},
+    {id:'maelle-farjot',       name:'Maëlle Farjot',          initials:'MF'},
+    {id:'frederic-bischoff',   name:'Frédéric Bischoff',      initials:'FB'},
+    {id:'astrid-berger',       name:'Astrid Berger',          initials:'ABE'},
+    {id:'alex-stauffer',       name:'Alex Stauffer',          initials:'AS2'},
+    {id:'marion-jancovici',    name:'Marion Jancovici',       initials:'MJ'},
+    {id:'chantal-gressier',    name:'Chantal Gressier',       initials:'CG'},
+    {id:'eva-pierucci',        name:'Eva Pierucci',           initials:'EP'},
+    {id:'camille-grumblatt',   name:'Camille Grumblatt',      initials:'CG2'},
+    {id:'gabriel-savy',        name:'Gabriel Savy',           initials:'GS'},
+    {id:'mathis-letterman',    name:'Mathis Letterman',       initials:'ML'},
+    {id:'malena-aguiriano',    name:'Malena Aguiriano Calvo', initials:'MA'},
+  ]
+};
+
+// ── COLOUR ──────────────────────────────────────────────────────────────────
+const PALETTE=['#0070AD','#00968F','#0891B2','#5B21B6','#047857','#B45309','#BE185D','#1D4ED8','#7C3AED','#0E7490','#065F46','#9A3412','#1E40AF','#6B21A8','#0F766E','#92400E','#155E75','#4D7C0F','#831843','#1C3A52'];
+function colorFor(id){let h=0;for(const c of id)h=(h*31+c.charCodeAt(0))&0xffffffff;return PALETTE[Math.abs(h)%PALETTE.length]}
+
+// ── STATE ───────────────────────────────────────────────────────────────────
+const SK='ii_roadmap_v2';
+let assignments={};   // {taskId: Set<personId>}
+function load(){try{const r=localStorage.getItem(SK);if(r){const o=JSON.parse(r);for(const[k,v]of Object.entries(o))assignments[k]=new Set(v)}}catch(e){}}
+function save(){const o={};for(const[k,v]of Object.entries(assignments))o[k]=[...v];localStorage.setItem(SK,JSON.stringify(o))}
+
+// ── HELPERS ─────────────────────────────────────────────────────────────────
+function allPeople(){return[...PEOPLE.vp,...PEOPLE.mgr,...PEOPLE.con]}
+function personById(id){return allPeople().find(p=>p.id===id)}
+function levelOf(id){return PEOPLE.vp.find(p=>p.id===id)?'vp':PEOPLE.mgr.find(p=>p.id===id)?'mgr':'con'}
+function levelLabel(lv){return{vp:'VP',mgr:'Manager',con:'Consultant'}[lv]}
+
+// ── RENDER CARD ─────────────────────────────────────────────────────────────
+function renderCard(card){
+  const taskId=card.dataset.id, level=card.dataset.level;
+  const row=card.querySelector('.assignee-row');
+  row.innerHTML='';
+  const assigned=assignments[taskId]||new Set();
+
+  // chips
+  for(const pid of assigned){
+    const p=personById(pid); if(!p)continue;
+    const chip=document.createElement('span');
+    chip.className='avatar-chip';
+    chip.style.cssText=`background:${colorFor(pid)}18;color:${colorFor(pid)};border:1px solid ${colorFor(pid)}40`;
+    chip.innerHTML=`<span class="av-circle" style="background:${colorFor(pid)}">${p.initials}</span>${p.name.split(' ')[0]}<span class="rm" data-pid="${pid}" data-tid="${taskId}">✕</span>`;
+    chip.querySelector('.rm').addEventListener('click',e=>{e.stopPropagation();toggle(taskId,pid,false)});
+    row.appendChild(chip);
+  }
+
+  // assign button
+  const btn=document.createElement('button');
+  btn.className='assign-btn';
+  btn.innerHTML=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="5" r="3"/><path d="M2 13c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg> Assign`;
+  btn.addEventListener('click',e=>{e.stopPropagation();openDropdown(btn,taskId,level)});
+  row.appendChild(btn);
+}
+
+// ── DROPDOWN ────────────────────────────────────────────────────────────────
+let activeDD=null;
+function openDropdown(btn,taskId,level){
+  closeDropdown();
+  const people=PEOPLE[level];
+  const assigned=assignments[taskId]||new Set();
+
+  const dd=document.createElement('div');
+  dd.className='assign-dropdown';
+
+  const input=document.createElement('input');
+  input.className='dd-search'; input.placeholder='Search name…'; input.autocomplete='off';
+  dd.appendChild(input);
+
+  const list=document.createElement('div'); list.className='dd-list'; dd.appendChild(list);
+
+  function render(q=''){
+    list.innerHTML='';
+    const fl=people.filter(p=>p.name.toLowerCase().includes(q.toLowerCase()));
+    if(!fl.length){list.innerHTML='<div class="dd-empty">No match</div>';return}
+    for(const p of fl){
+      const sel=assigned.has(p.id);
+      const item=document.createElement('div');
+      item.className='dd-item'+(sel?' sel':'');
+      item.innerHTML=`<span class="d-av" style="background:${colorFor(p.id)}">${p.initials}</span><span class="d-nm">${p.name}</span>${sel?'<span class="d-ck">✓</span>':''}`;
+      item.addEventListener('click',()=>{toggle(taskId,p.id,!sel);closeDropdown()});
+      list.appendChild(item);
+    }
+  }
+  render();
+  input.addEventListener('input',()=>render(input.value));
+
+  btn.appendChild(dd); activeDD=dd;
+  setTimeout(()=>input.focus(),30);
+  setTimeout(()=>document.addEventListener('click',closeDropdown,{once:true}),10);
+}
+function closeDropdown(){if(activeDD){activeDD.remove();activeDD=null}}
+
+// ── ASSIGN LOGIC ────────────────────────────────────────────────────────────
+function toggle(taskId,personId,add){
+  if(add){if(!assignments[taskId])assignments[taskId]=new Set();assignments[taskId].add(personId)}
+  else{if(assignments[taskId]){assignments[taskId].delete(personId);if(!assignments[taskId].size)delete assignments[taskId]}}
+  save();
+  const card=document.querySelector(`[data-id="${taskId}"]`);
+  if(card)renderCard(card);
+  refreshSummary(); refreshBadges(); refreshCount();
+}
+function clearAll(){
+  assignments={};save();
+  document.querySelectorAll('.task-card').forEach(c=>renderCard(c));
+  refreshSummary();refreshBadges();refreshCount();
+}
+
+// ── SUMMARY ─────────────────────────────────────────────────────────────────
+const AREA_META={ai:{label:'🤖 AI',cls:'tag-ai'},ppl:{label:'👥 People',cls:'tag-ppl'},ev:{label:'📅 Events',cls:'tag-ev'},tr:{label:'🎓 Training',cls:'tag-tr'}};
+function areaKey(taskId){return taskId.split('-')[1]}
+function taskTextOf(taskId){const c=document.querySelector(`[data-id="${taskId}"]`);return c?c.querySelector('.task-text').textContent.trim():taskId}
+
+function refreshSummary(){
+  const body=document.getElementById('summary-body');
+  const empty=document.getElementById('summary-empty');
+  const sub=document.getElementById('summary-subtitle');
+  body.querySelectorAll('.summary-person').forEach(e=>e.remove());
+
+  // build byPerson map
+  const byPerson={};
+  for(const[tid,pset]of Object.entries(assignments))for(const pid of pset){if(!byPerson[pid])byPerson[pid]=[];byPerson[pid].push(tid)}
+  const total=Object.values(byPerson).reduce((s,v)=>s+v.length,0);
+
+  if(!total){empty.style.display='';sub.textContent='No assignments yet';return}
+  empty.style.display='none';
+  sub.textContent=`${Object.keys(byPerson).length} people · ${total} total assignments`;
+
+  const ordered=[...PEOPLE.vp,...PEOPLE.mgr,...PEOPLE.con].filter(p=>byPerson[p.id]);
+  for(const p of ordered){
+    const tasks=byPerson[p.id];
+    const lv=levelOf(p.id);
+    const div=document.createElement('div'); div.className='summary-person';
+    const am=AREA_META;
+    div.innerHTML=`
+      <div class="sp-header">
+        <span class="sp-av" style="background:${colorFor(p.id)}">${p.initials}</span>
+        <span class="sp-name">${p.name}</span>
+        <span class="sp-level">${levelLabel(lv)}</span>
+        <span class="sp-count">${tasks.length} task${tasks.length>1?'s':''}</span>
+      </div>
+      <div class="sp-tasks">
+        ${tasks.map(tid=>{const ak=areaKey(tid);const m=am[ak]||{label:ak,cls:''};return`<div class="sp-task"><span class="stag area-tag ${m.cls}">${m.label}</span>${taskTextOf(tid)}</div>`}).join('')}
+      </div>`;
+    body.appendChild(div);
+  }
+}
+
+// ── BADGES & COUNT ──────────────────────────────────────────────────────────
+function refreshBadges(){
+  for(const lv of['vp','mgr','con']){
+    const n=document.querySelectorAll(`[data-level="${lv}"]`);
+    let c=0; n.forEach(card=>{if((assignments[card.dataset.id]||new Set()).size)c++});
+    const b=document.getElementById(`badge-${lv}`);
+    b.textContent=c; b.style.display=c?'inline-flex':'none';
+  }
+}
+function refreshCount(){
+  let t=0;for(const s of Object.values(assignments))t+=s.size;
+  document.getElementById('assigned-count').textContent=t;
+}
+
+// ── TOGGLE AREA ─────────────────────────────────────────────────────────────
+function toggleArea(btn){
+  const tasks=btn.nextElementSibling,toggle=btn.querySelector('.area-toggle');
+  toggle.textContent=tasks.classList.toggle('collapsed')?'▼':'▲';
+}
+
+// ── LEVEL TABS ──────────────────────────────────────────────────────────────
+function showLevel(level,btn){
+  document.querySelectorAll('.level-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.level-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+level).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+load();
+document.querySelectorAll('.task-card').forEach(c=>renderCard(c));
+refreshSummary(); refreshBadges(); refreshCount();
+</script>
+</body>
+</html>
