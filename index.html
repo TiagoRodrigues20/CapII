@@ -397,10 +397,40 @@ const PALETTE=['#0070AD','#00968F','#0891B2','#5B21B6','#047857','#B45309','#BE1
 function colorFor(id){let h=0;for(const c of id)h=(h*31+c.charCodeAt(0))&0xffffffff;return PALETTE[Math.abs(h)%PALETTE.length]}
 
 // ── STATE ───────────────────────────────────────────────────────────────────
-const SK='ii_roadmap_v2';
-let assignments={};   // {taskId: Set<personId>}
-function load(){try{const r=localStorage.getItem(SK);if(r){const o=JSON.parse(r);for(const[k,v]of Object.entries(o))assignments[k]=new Set(v)}}catch(e){}}
-function save(){const o={};for(const[k,v]of Object.entries(assignments))o[k]=[...v];localStorage.setItem(SK,JSON.stringify(o))}
+const API = "/api/tasktracker";
+let saveTimer = null;
+let assignments = {};   // {taskId: Set<personId>}
+
+async function load() {
+  try {
+    const res = await fetch(API);
+    const data = await res.json();
+    assignments = {};
+    const o = data.assignments || {};
+    for (const [k, v] of Object.entries(o)) assignments[k] = new Set(v);
+  } catch(e) { console.error("Load failed", e); }
+  render();
+}
+
+function save() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    try {
+      const o = {};
+      for (const [k, v] of Object.entries(assignments)) o[k] = [...v];
+      await fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ assignments: o })
+      });
+    } catch(e) { console.error("Save failed", e); }
+  }, 800);
+}
+
+function render() {
+  document.querySelectorAll('.task-card').forEach(c => renderCard(c));
+  refreshSummary(); refreshBadges(); refreshCount();
+}
 
 // ── HELPERS ─────────────────────────────────────────────────────────────────
 function allPeople(){return[...PEOPLE.vp,...PEOPLE.mgr,...PEOPLE.con]}
@@ -557,8 +587,6 @@ function showLevel(level,btn){
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 load();
-document.querySelectorAll('.task-card').forEach(c=>renderCard(c));
-refreshSummary(); refreshBadges(); refreshCount();
 </script>
 </body>
 </html>
