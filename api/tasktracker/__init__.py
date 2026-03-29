@@ -22,7 +22,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         from azure.cosmos import CosmosClient, exceptions
         client = CosmosClient(cosmos_url, cosmos_key)
-        db = client.get_database_client("pantry")
+        db = client.get_database_client("tasktracker")
         container = db.get_container_client("tasktracker")
 
         if req.method == "GET":
